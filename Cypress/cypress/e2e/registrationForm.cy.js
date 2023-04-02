@@ -22,8 +22,12 @@ describe('Verify Student Registration Form', () => {
         return false;
       })
 
-    it('TC-01', () => {
+    it.only('TC-01', () => {
         formPage.submitForm ()
+        formPage.elements.firstName().should('have.css', 'border-color', 'rgb(220, 53, 69)')
+        formPage.elements.lastName().should('have.css', 'border-color', 'rgb(220, 53, 69)')
+        formPage.elements.userNumber().should('have.css', 'border-color', 'rgb(220, 53, 69)')
+        formPage.elements.gender().should('have.css', 'border-color', 'rgb(220, 53, 69)')
     })
 
     it('TC-02', () => {
