@@ -1,0 +1,12 @@
+{
+    "firstName": "Nate",
+    "lastName": "River",
+    "email": "nateriver@abc.com",
+    "number": "0123456789",
+    "address": "221B Baker Street",
+    "gender": "Female",
+    "yearDOB": "1993",
+    "monthDOB": "October",
+    "dateDOB": "1",
+    "subject": ["Chemistry", "Physics"]
+}
