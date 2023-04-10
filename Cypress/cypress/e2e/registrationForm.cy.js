@@ -22,27 +22,46 @@ describe('Verify Student Registration Form', () => {
         return false;
       })
 
-    it.only('TC-01', () => {
+    it('TC-01', () => {
         formPage.submitForm ()
         formPage.elements.firstName().should('have.css', 'border-color', 'rgb(220, 53, 69)')
         formPage.elements.lastName().should('have.css', 'border-color', 'rgb(220, 53, 69)')
         formPage.elements.userNumber().should('have.css', 'border-color', 'rgb(220, 53, 69)')
         formPage.elements.gender().should('have.css', 'border-color', 'rgb(220, 53, 69)')
+        cy.wait(2000)
     })
-
-    it('TC-02', () => {
+        
+    it.only ('TC-02', () => {
         cy.fixture('inputData.json').then((data) => {
           formPage.textInput(data.firstName, data.lastName, data.email, data.number, data.address)
+          formPage.elements.firstName().should('have.value', data.firstName)
+          formPage.elements.lastName().should('have.value', data.lastName)
+          formPage.elements.userEmail().should('have.value', data.email)
+          formPage.elements.userNumber().should('have.value', data.number)
+          formPage.elements.currentAddress().should('have.value', data.address)
           formPage.elements.gender().contains(data.gender).click()
           formPage.elements.inputDOB().click()
           formPage.elements.datePicker().should('be.visible')
           formPage.dob(data.yearDOB, data.monthDOB, data.dateDOB)
-          formPage.elements.inputDOB().should('have.value', 0+data.dateDOB.concat(" ", (data.monthDOB).slice(0,3), " ", data.yearDOB))
           formPage.subject(data.subject[0])
           formPage.subject(data.subject[1])
+          formPage.elements.state().click()
+          formPage.elements.stateOption().contains('Haryana').click({force:true})
+          formPage.elements.city().click()
+          formPage.elements.cityOption().contains('Karnal').click({force:true})
+          formPage.elements.hobbies().click({multiple:true})
+          formPage.elements.picture().selectFile('dogbutterfly.jpg', {force:true})
+          formPage.submitForm()
+          cy.get('.table-responsive').should('be.visible')
+          cy.get('.table-responsive').contains(data.firstName + " " + data.lastName)
         })
-        formPage.checkboxes.hobbies().click({multiple:true})
-        formPage.submitForm()
+        
+      })
+
+      it.only ('TC', () => {
+        formPage.elements.picture().selectFile('dogbutterfly.jpg', {force:true})
       })
 })
+
+
 
